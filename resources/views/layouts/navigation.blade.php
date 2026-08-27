@@ -57,17 +57,19 @@
 .bg-orange-3d { background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%); box-shadow: none !important; }
 .bg-red-3d    { background: linear-gradient(135deg, #f87171 0%, #dc2626 100%); box-shadow: none !important; }
 
-/* STYLE KHUSUS TOMBOL SIGN OUT (UPDATED: MERAH SOLID DENGAN HOVER GELAP) */
-.btn-signout-solid {
-    background-color: #e11d48 !important;
-    border: none !important;
-    color: #ffffff !important;
+/* STYLE KHUSUS TOMBOL SIGN OUT (DEFAULT MERAH SOFT -> HOVER MERAH SOLID + FONT INHERIT) */
+.btn-signout-box {
+    background-color: #fff5f5 !important;
+    border: 1px solid #fecdd3 !important;
+    color: #e11d48 !important;
     border-radius: 8px !important;
+    font-family: inherit !important;
     transition: all 0.2s ease-in-out;
 }
 
-.btn-signout-solid:hover {
-    background-color: #be123c !important;
+.btn-signout-box:hover {
+    background-color: #e11d48 !important;
+    border-color: #e11d48 !important;
     color: #ffffff !important;
     box-shadow: 0 4px 12px rgba(225, 29, 72, 0.25);
 }

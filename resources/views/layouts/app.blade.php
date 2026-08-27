@@ -8,8 +8,10 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts & CSS CDN -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"/>
@@ -17,8 +19,18 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <style>
+            /* FONT STYLING AMAN */
             html, body {
+                font-family: 'Open Sans', 'Nunito', sans-serif !important;
                 overflow-x: hidden;
+            }
+
+            *, *::before, *::after, h1, h2, h3, h4, h5, h6, p, label, input, button, select, textarea, a, span, div, small, strong {
+                font-family: inherit !important;
+            }
+
+            i, [class*="fa-"], [class*="fi-"], .fa, .fas, .far, .fal, .fab, .fa-solid, .fa-regular, .fa-brands {
+                font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "flag-icons" !important;
             }
 
             .sidebar, #main-content {
@@ -33,17 +45,22 @@
                 margin-left: 0 !important;
             }
 
-            /* Responsive CSS Adjustment */
             @media (max-width: 991.98px) {
                 #main-content {
                     margin-left: 0 !important;
                 }
             }
         </style>
+
+        <!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     </head>
+
+
     <body class="font-sans antialiased bg-light">
         
-        <!-- Top Navigation Bar (Memanggil layouts/navigation.blade.php) -->
+        <!-- Top Navigation Bar -->
         @include('layouts.navigation')
 
         <!-- Container Layout -->
@@ -107,18 +124,18 @@
                     });
                 }
 
-                // Close popup when clicking outside
+                // Close popup when clicking outside (Khusus Mobile Search/More)
                 document.addEventListener('click', function (e) {
-                    if (searchBar && !searchBar.contains(e.target) && !searchBtn.contains(e.target)) {
+                    if (searchBar && !searchBar.contains(e.target) && searchBtn && !searchBtn.contains(e.target)) {
                         searchBar.classList.remove('show');
                     }
-                    if (moreDropdown && !moreDropdown.contains(e.target) && !moreBtn.contains(e.target)) {
+                    if (moreDropdown && !moreDropdown.contains(e.target) && moreBtn && !moreBtn.contains(e.target)) {
                         moreDropdown.classList.remove('show');
                     }
                 });
             });
 
-            // 3. Language Changer Helper (Sync PC & Mobile)
+            // 3. Language Changer Helper
             function changeLanguage(code, flagCode) {
                 var textDesktop = document.getElementById('current-lang-text-desktop');
                 if (textDesktop) textDesktop.innerText = code;
