@@ -45,6 +45,12 @@
             box-shadow: 0 12px 30px rgba(1, 41, 112, 0.08);
         }
 
+        .brand-logo {
+            max-width: 180px;
+            height: auto;
+            object-fit: contain;
+        }
+
         .text-brand-dark {
             color: #012970;
             font-weight: 700;
@@ -116,19 +122,6 @@
             border-bottom-width: 1px;
         }
 
-        .form-check-input-custom {
-            width: 1.2em;
-            height: 1.2em;
-            border-radius: 4px;
-            border: 1px solid #dce1e7;
-            margin-top: 0;
-        }
-
-        .form-check-input-custom:checked {
-            background-color: #4154f1;
-            border-color: #4154f1;
-        }
-
         .link-blue {
             color: #4154f1;
             text-decoration: none;
@@ -140,15 +133,34 @@
             color: #2b3cd4;
             text-decoration: underline;
         }
+
+        .copyright-text {
+            color: #899bbd;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .label-icon {
+            font-size: 1.05rem;
+            color: #4154f1;
+            margin-right: 0.35rem;
+        }
     </style>
 </head>
 <body class="d-flex align-items-center justify-content-center min-vh-100 py-4">
 
     <!-- Card Grid dengan Border 3D Atas (Biru) & Bawah (Oranye) -->
     <div class="auth-card-3d">
-        <!-- Title Header -->
-        <h2 class="text-brand-dark fs-2 mb-1">Welcome back</h2>
-        <p class="text-muted mb-4">Sign in to continue to your NiceAdmin workspace.</p>
+        <!-- Logo PT SIIX (Tengah) -->
+        <div class="text-center mb-4">
+            <img src="{{ asset('image/logoSiix.png') }}" alt="PT SIIX Logo" class="brand-logo">
+        </div>
+
+        <!-- Title Header (Kiri) -->
+        <div class="text-start mb-4">
+            <h2 class="text-brand-dark fs-2 mb-1">Welcome back</h2>
+            <p class="text-muted small mb-0 fw-medium">Engineering 1 Portal</p>
+        </div>
 
         <!-- Session Status -->
         @if (session('status'))
@@ -162,8 +174,10 @@
 
             <!-- NIK Field -->
             <div class="mb-4">
-                <label for="nik" class="form-label form-label-custom">NIK</label>
-                <input id="nik" type="text" name="nik" class="form-control form-control-custom @error('nik') is-invalid @enderror" value="{{ old('nik') }}" required autofocus autocomplete="off" placeholder="Masukkan NIK Anda">
+                <label for="nik" class="form-label form-label-custom d-flex align-items-center">
+                    <i class="bi bi-person-vcard label-icon"></i> Nomor Induk Karyawan
+                </label>
+                <input id="nik" type="text" name="nik" class="form-control form-control-custom @error('nik') is-invalid @enderror" value="{{ old('nik') }}" required autofocus autocomplete="off" placeholder="Enter your NIK">
                 @error('nik')
                     <div class="text-danger small mt-1 fw-semibold">{{ $message }}</div>
                 @enderror
@@ -172,7 +186,9 @@
             <!-- Password Field -->
             <div class="mb-4">
                 <div class="d-flex justify-content-between align-items-center mb-1">
-                    <label for="password" class="form-label form-label-custom mb-0">Password</label>
+                    <label for="password" class="form-label form-label-custom mb-0 d-flex align-items-center">
+                        <i class="bi bi-lock label-icon"></i> Password
+                    </label>
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" class="link-blue">Forgot password?</a>
                     @endif
@@ -188,22 +204,16 @@
                 @enderror
             </div>
 
-            <!-- Remember Me & Lock Screen -->
-            <div class="d-flex align-items-center justify-content-between mb-4 pt-1">
-                <div class="form-check d-flex align-items-center gap-2 mb-0">
-                    <input class="form-check-input form-check-input-custom" type="checkbox" name="remember" id="remember_me">
-                    <label class="form-check-label text-muted small fw-medium" for="remember_me">
-                        Remember me
-                    </label>
-                </div>
-                <a href="#" class="link-blue">Use lock screen</a>
-            </div>
-
             <!-- Submit Button -->
-            <button class="btn btn-blue-submit w-100" type="submit">
-                Sign In
+            <button class="btn btn-blue-submit w-100 mt-2" type="submit">
+                Login
             </button>
         </form>
+
+        <!-- Copyright Footer -->
+        <div class="text-center mt-4 pt-2">
+            <p class="copyright-text mb-0">&copy; {{ date('Y') }} Engineering 1. All rights reserved.</p>
+        </div>
     </div>
 
     <!-- Toggle Password Script -->
