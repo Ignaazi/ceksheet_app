@@ -20,15 +20,17 @@
         <div class="position-absolute start-0 end-0 top-50 translate-y-50" style="border-bottom: 1px solid #e2e8f5; z-index: 1; margin-left: 8px; margin-right: 8px;"></div>
       </li>
   
+      <!-- USER ACCOUNTS MENU -->
       <li class="nav-item">
         <a class="nav-link rounded-3 d-flex align-items-center {{ request()->routeIs('users.*') ? 'active' : 'collapsed' }}"
-           href="#"
+           href="{{ route('users.index') }}"
            style="padding: 6px 12px; height: 35px; font-size: 13.5px; font-weight: 600;">
           <i class="fa-solid fa-users me-2" style="font-size: 15px;"></i>
           <span>User Accounts</span>
         </a>
       </li>
 
+      <!-- MY PROFILE MENU -->
       <li class="nav-item">
         <a class="nav-link rounded-3 d-flex align-items-center {{ request()->routeIs('profile.edit') ? 'active' : 'collapsed' }}"
            href="{{ route('profile.edit') }}"
@@ -82,7 +84,7 @@
     const chevron = document.getElementById('settings-chevron');
     
     if (dropdown.style.display === 'none' || dropdown.style.display === '') {
-      // 1. Matikan class 'active' dari SEMUA menu utama lain (termasuk Dashboard)
+      // 1. Matikan class 'active' dari SEMUA menu utama lain
       document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
         link.classList.remove('active');
       });
@@ -97,10 +99,12 @@
       btn.classList.remove('active');
       chevron.style.transform = 'rotate(0deg)';
 
-      // 4. Kembalikan status active ke halaman asal (jika memang sedang buka page tertentu)
+      // 4. Kembalikan status active ke halaman asal
       const currentPath = window.location.pathname;
       if (currentPath.includes('dashboard')) {
         document.querySelector('a[href*="dashboard"]')?.classList.add('active');
+      } else if (currentPath.includes('users')) {
+        document.querySelector('a[href*="users"]')?.classList.add('active');
       } else if (currentPath.includes('profile')) {
         document.querySelector('a[href*="profile"]')?.classList.add('active');
       }

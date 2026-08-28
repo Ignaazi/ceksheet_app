@@ -1,7 +1,11 @@
 <x-app-layout>
     <div class="container-fluid px-3 px-md-4 py-3" style="font-family: 'Nunito', sans-serif;">
         
-        <!-- BREADCRUMB NAVIGATION (DASHBOARD WITH ROCKET ICON / MY PROFILE) -->
+        <div class="mb-3">
+            <h1 class="fw-extrabold text-dark m-0" style="font-size: 1.6rem; font-weight: 800; color: #0f172a; tracking-tight: -0.025em;">Profile Management</h1>
+            <p class="text-muted m-0 mt-1" style="font-size: 13px; font-weight: 400; color: #64748b;">Manage your account details, profile picture, and security settings.</p>
+        </div>
+
         <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb bg-transparent p-0 m-0 align-items-center" style="font-size: 13.5px;">
                 <li class="breadcrumb-item">
@@ -17,23 +21,18 @@
             </ol>
         </nav>
 
-        <!-- CARD TOP: AVATAR & USER SUMMARY HEADER -->
         <div class="card border-0 rounded-2 shadow-sm p-3 p-sm-4 mb-4" style="background: radial-gradient(at 0% 0%, #e0e7ff 0px, transparent 50%), radial-gradient(at 25% 100%, #f3e8ff 0px, transparent 50%), radial-gradient(at 50% 0%, #ffedd5 0px, transparent 50%), radial-gradient(at 75% 100%, #fef9c3 0px, transparent 50%), radial-gradient(at 100% 0%, #dcfce7 0px, transparent 50%), #ffffff; border: 1px solid #cbd5e1 !important;">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
                 
-                <!-- LEFT: FOTO & DETAIL NAMA -->
                 <div class="d-flex flex-column flex-sm-row align-items-center gap-3 text-center text-sm-start">
-                    <!-- FOTO PROFILE AVATAR (BORDER PUTIH) -->
                     <div class="position-relative flex-shrink-0">
                         <img src="{{ auth()->user()->avatar_url }}" alt="{{ Auth::user()->name }}" class="rounded-2 shadow-sm" style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #ffffff;">
                     </div>
 
-                    <!-- TEXT INFO -->
                     <div class="d-flex flex-column justify-content-center">
                         <span class="text-uppercase mb-1" style="font-size: 14px; font-weight: 800; letter-spacing: 1.5px; color: #2563eb;">My Profile</span>
                         <h2 class="fw-extrabold m-0 text-dark" style="font-size: calc(1.2rem + 0.4vw); font-weight: 800; color: #0f172a; line-height: 1.2;">{{ Auth::user()->name }}</h2>
                         
-                        <!-- SUB-TEKS DENGAN BADGE EMAS -->
                         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-sm-start gap-1.5 mt-2" style="font-size: 13px; color: #475569;">
                             <span class="badge rounded-1 px-2.5 py-1 fw-bold shadow-sm" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #ffffff; font-size: 11px; letter-spacing: 0.5px; border: 1px solid #b45309;">
                                 {{ strtoupper(Auth::user()->role ?? 'User') }}
@@ -43,7 +42,6 @@
                     </div>
                 </div>
 
-                <!-- RIGHT: ACTION BUTTON (UPLOAD AVATAR) -->
                 <div class="d-flex align-items-center justify-content-center gap-2 align-self-center mt-2 mt-md-0">
                     <form action="#" method="POST" enctype="multipart/form-data" id="avatar-form" class="m-0">
                         @csrf
@@ -58,10 +56,8 @@
             </div>
         </div>
 
-        <!-- CARD BOTTOM: TAB NAVIGATION & CONTENT -->
         <div class="card border-0 rounded-2 shadow-sm p-3 p-sm-4" style="background-color: #ffffff; border: 1px solid #edf2f7 !important;">
             
-            <!-- NAV TABS (RESPONSIVE SCROLLABLE ON MOBILE) -->
             <div class="overflow-auto mb-4 pb-1">
                 <ul class="nav nav-tabs border-bottom-0 gap-2 flex-nowrap" id="profileTab" role="tablist" style="min-width: max-content;">
                     <li class="nav-item" role="presentation">
@@ -82,10 +78,8 @@
                 </ul>
             </div>
 
-            <!-- TAB CONTENT -->
             <div class="tab-content" id="profileTabContent">
                 
-                <!-- ================= 1. TAB OVERVIEW ================= -->
                 <div class="tab-pane fade show active" id="overview" role="tabpanel">
                     <div class="mb-3 mb-sm-4">
                         <span class="text-primary fw-bold text-uppercase d-block mb-1" style="font-size: 11px; letter-spacing: 1px;">Overview</span>
@@ -123,7 +117,6 @@
                     </div>
                 </div>
 
-                <!-- ================= 2. TAB EDIT PROFILE ================= -->
                 <div class="tab-pane fade" id="edit" role="tabpanel">
                     <div class="mb-3 mb-sm-4">
                         <span class="text-primary fw-bold text-uppercase d-block mb-1" style="font-size: 11px; letter-spacing: 1px;">Update Info</span>
@@ -158,7 +151,6 @@
                     </form>
                 </div>
 
-                <!-- ================= 3. TAB SECURITY ================= -->
                 <div class="tab-pane fade" id="security" role="tabpanel">
                     <div class="mb-3 mb-sm-4">
                         <span class="text-primary fw-bold text-uppercase d-block mb-1" style="font-size: 11px; letter-spacing: 1px;">Security</span>
@@ -206,7 +198,6 @@
 
     </div>
 
-    <!-- SWEETALERT2 SCRIPT FOR CONFIRMATION, QUICK SUCCESS & ERROR ALERTS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         // 1. Confirm Avatar Upload (English)
@@ -309,7 +300,6 @@
         @endif
     </script>
 
-    <!-- STYLING TAB & BREADCRUMB HOVER -->
     <style>
         .breadcrumb-item a:hover {
             color: #2563eb !important;
