@@ -55,14 +55,14 @@
         <!-- SUB-MENU DROPDOWN WITH TREE LINE & ICONS -->
         <div id="settings-dropdown" class="sidebar-tree-wrapper" style="display: {{ request()->routeIs('settings.*') ? 'block' : 'none' }};">
           <ul class="nav flex-column list-unstyled sidebar-tree-list">
-            <li>
-              <a class="sub-nav-link d-flex align-items-center {{ request()->routeIs('settings.roles*') ? 'active' : '' }}" 
-                 href="#">
-                <span class="tree-bullet"></span>
-                <i class="fa-solid fa-shield-halved me-2" style="font-size: 12px;"></i>
-                <span>Role & Permissions</span>
-              </a>
-            </li>
+              <li>
+                <a class="sub-nav-link d-flex align-items-center {{ request()->routeIs('permissions.*') ? 'active' : '' }}" 
+                  href="{{ route('permissions.index') }}">
+                  <span class="tree-bullet"></span>
+                  <i class="fa-solid fa-shield-halved me-2" style="font-size: 12px;"></i>
+                  <span>Role & Permissions</span>
+                </a>
+              </li>
             <li>
               <a class="sub-nav-link d-flex align-items-center {{ request()->routeIs('settings.ip*') ? 'active' : '' }}" 
                  href="#">
