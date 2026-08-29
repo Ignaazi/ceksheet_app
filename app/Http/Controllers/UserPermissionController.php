@@ -4,24 +4,74 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Permission; // Model bawaan Spatie
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserPermissionController extends Controller
 {
+    /**
+     * Tampilkan halaman Matrix Access Control.
+     */
     public function index(Request $request)
     {
-        $query = Permission::query();
+        // Ambil semua daftar permission dan role untuk dikirim ke view
+        $permissions = Permission::all();
+        $roles = Role::with('permissions')->get();
 
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('guard_name', 'like', '%' . $request->search . '%');
-        }
-
-        $permissions = $query->latest()->paginate(10)->withQueryString();
-
-        return view('userPermission', compact('permissions'));
+        return view('UserPermission', compact('permissions', 'roles'));
     }
 
+    /**
+     * Simpan / Sync perubahan Matrix Checkbox Permissions per Role.
+     */
+    public function update(Request $request, $id = null)
+    {
+        // Hanya Admin yang berhak memperbarui matriks akses
+        if (Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $matrix = $request->input('permissions', []);
+
+        // Daftar role yang didukung
+        $availableRoles = ['admin', 'leader', 'staff'];
+
+        foreach ($availableRoles as $roleName) {
+            // Pastikan Role ada di database, jika belum ada buatkan otomatis
+            $role = Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
+            
+            $permissionNamesToSync = [];
+
+            // Jika ada data centangan untuk role ini
+            if (isset($matrix[$roleName]) && is_array($matrix[$roleName])) {
+                foreach ($matrix[$roleName] as $module => $actions) {
+                    foreach ($actions as $action => $value) {
+                        if ($value == '1') {
+                            // Format nama permission: "action-module" (contoh: "view-users", "edit-ip_config")
+                            $permName = strtolower("{$action}-{$module}");
+
+                            // Buat permission ke DB jika belum terdaftar
+                            Permission::firstOrCreate([
+                                'name' => $permName,
+                                'guard_name' => 'web'
+                            ]);
+
+                            $permissionNamesToSync[] = $permName;
+                        }
+                    }
+                }
+            }
+
+            // Sync permission ke Role (yang tidak dicentang otomatis dicabut)
+            $role->syncPermissions($permissionNamesToSync);
+        }
+
+        return redirect()->route('permissions.index')->with('status', 'permissions-updated');
+    }
+
+    /**
+     * Tambah Single Permission baru (opsional).
+     */
     public function store(Request $request)
     {
         if (Auth::user()->role !== 'admin') {
@@ -34,34 +84,16 @@ class UserPermissionController extends Controller
         ]);
 
         Permission::create([
-            'name' => $request->name,
-            'guard_name' => $request->guard_name,
+            'name' => strtolower($request->name),
+            'guard_name' => $request->guard_name ?? 'web',
         ]);
 
         return redirect()->route('permissions.index')->with('status', 'permission-created');
     }
 
-    public function update(Request $request, $id)
-    {
-        if (!in_array(Auth::user()->role, ['admin', 'leader'])) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        $permission = Permission::findOrFail($id);
-
-        $request->validate([
-            'name' => 'required|string|max:255|unique:permissions,name,' . $id,
-            'guard_name' => 'required|string|max:255',
-        ]);
-
-        $permission->update([
-            'name' => $request->name,
-            'guard_name' => $request->guard_name,
-        ]);
-
-        return redirect()->route('permissions.index')->with('status', 'permission-updated');
-    }
-
+    /**
+     * Hapus Permission spesifik (opsional).
+     */
     public function destroy($id)
     {
         if (Auth::user()->role !== 'admin') {

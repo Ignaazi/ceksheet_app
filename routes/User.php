@@ -20,7 +20,10 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('permissions')->name('permissions.')->group(function () {
         Route::get('/', [UserPermissionController::class, 'index'])->name('index');
         Route::post('/', [UserPermissionController::class, 'store'])->name('store');
-        Route::put('/{permission}', [UserPermissionController::class, 'update'])->name('update');
+        
+        // DIPERBARUI: Dihapus parameter /{permission} agar sesuai dengan pembacaan Matrix Form
+        Route::put('/', [UserPermissionController::class, 'update'])->name('update');
+        
         Route::delete('/{permission}', [UserPermissionController::class, 'destroy'])->name('destroy');
     });
 
