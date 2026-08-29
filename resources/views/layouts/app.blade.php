@@ -71,14 +71,14 @@
 
             <!-- Main Content Area -->
             <div id="main-content" class="flex-grow-1 min-vh-100" style="margin-left: 260px;">
-                @isset($header)
+                @if(isset($header) || View::hasSection('header'))
                     <header class="bg-white shadow-sm py-3 px-4">
-                        {{ $header }}
+                        {{ $header ?? $__env->yieldContent('header') }}
                     </header>
-                @endisset
+                @endif
 
                 <main class="p-4">
-                    {{ $slot }}
+                    {{ $slot ?? $__env->yieldContent('content') }}
                 </main>
             </div>
         </div>

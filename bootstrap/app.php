@@ -12,8 +12,13 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
+            // Register Route User
             Route::middleware('web')
                 ->group(base_path('routes/user.php'));
+
+            // Register Route ApprovalSheet Baru
+            Route::middleware('web')
+                ->group(base_path('routes/ApprovalSheet.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
