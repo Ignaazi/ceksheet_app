@@ -1,20 +1,22 @@
 <?php
 
-use App\Http\Controllers\UserManagementController;
+// Import Controller dari sub-folder Admin
+use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\UserPermissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     
-    // USER MANAGEMENT ROUTES
+    /* USER MANAGEMENT ROUTES (Admin Domain) */
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', [UserManagementController::class, 'index'])->name('index');
+        Route::get('/create', [UserManagementController::class, 'create'])->name('create'); // Full-page form route
         Route::post('/', [UserManagementController::class, 'store'])->name('store');
         Route::put('/{user}', [UserManagementController::class, 'update'])->name('update');
         Route::delete('/{user}', [UserManagementController::class, 'destroy'])->name('destroy');
     });
 
-    // PERMISSION MANAGEMENT ROUTES
+    /* PERMISSION MANAGEMENT ROUTES */
     Route::prefix('permissions')->name('permissions.')->group(function () {
         Route::get('/', [UserPermissionController::class, 'index'])->name('index');
         Route::post('/', [UserPermissionController::class, 'store'])->name('store');

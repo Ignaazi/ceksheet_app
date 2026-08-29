@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +29,20 @@ class UserManagementController extends Controller
 
         $users = $query->latest()->paginate(10)->withQueryString();
 
-        return view('userManagement', compact('users'));
+        // Menghitung statistik total per role untuk Snapshot Cards
+        $adminCount  = User::whereIn('role', ['admin', 'administrator'])->count();
+        $leaderCount = User::where('role', 'leader')->count();
+        $staffCount  = User::where('role', 'staff')->count();
+
+        return view('admin.userManagement', compact('users', 'adminCount', 'leaderCount', 'staffCount'));
+    }
+
+    /**
+     * Menampilkan halaman full-page form tambah user
+     */
+    public function create()
+    {
+        return view('admin.addUser'); // atau 'admin.users.create' sesuai nama file view Blade kamu
     }
 
     public function store(Request $request)

@@ -1,0 +1,76 @@
+/* Tombol Gradient Biru (Preview / Add User) */
+.btn-gradient-blue {
+    background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: opacity 0.2s ease-in-out !important;
+}
+
+.btn-gradient-blue:hover, 
+.btn-gradient-blue:focus, 
+.btn-gradient-blue:active {
+    background: linear-gradient(135deg, #0ea5e9 0%, #1d4ed8 100%) !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Tombol Gradient Yellow/Amber (Edit) */
+.btn-gradient-yellow {
+    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: opacity 0.2s ease-in-out !important;
+}
+
+.btn-gradient-yellow:hover, 
+.btn-gradient-yellow:focus, 
+.btn-gradient-yellow:active {
+    background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%) !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Tombol Gradient Red (Delete) */
+.btn-gradient-red {
+    background: linear-gradient(135deg, #f87171 0%, #dc2626 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: opacity 0.2s ease-in-out !important;
+}
+
+.btn-gradient-red:hover, 
+.btn-gradient-red:focus, 
+.btn-gradient-red:active {
+    background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%) !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Hilangkan Outline State */
+.form-control:focus,
+.form-select:focus,
+.btn:focus,
+.btn:active,
+button:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    border-color: #cbd5e1 !important;
+}
+
+/* Header Table Warna Biru */
+.table-blue-header thead th {
+    background-color: #0052cc !important;
+    color: #ffffff !important;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border: none !important;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}

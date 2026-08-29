@@ -16,6 +16,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"/>
 
+        <!-- Custom Sidebar CSS -->
+        <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <style>
@@ -53,10 +56,8 @@
         </style>
 
         <!-- SweetAlert2 CDN -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
-
 
     <body class="font-sans antialiased bg-light">
         
@@ -84,6 +85,9 @@
 
         <!-- Bootstrap JS Bundle -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Custom Sidebar JS -->
+        <script src="{{ asset('js/sidebar.js') }}"></script>
 
         <!-- Navigation & Layout Scripts -->
         <script>
