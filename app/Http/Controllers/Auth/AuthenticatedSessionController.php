@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User; // 1. Import Model User
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,14 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        // 2. Sinkronkan role Spatie dari kolom 'role' di DB setiap kali login
+        if ($user && $user->role) {
+            $user->syncRoles([$user->role]);
+        }
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

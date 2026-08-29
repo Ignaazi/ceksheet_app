@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\IpConfigController; // <-- Import controller IpConfig
+use App\Http\Controllers\Admin\IpConfigController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -20,27 +20,22 @@ Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
+    // KEMBALI NORMAL (Sync role diproses di AuthenticatedSessionController)
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     // --- FITUR LUPA PASSWORD VIA OTP ---
-    
-    // Step 1: Form Input NIK & Email
     Route::get('forgot-password', [OtpForgotPasswordController::class, 'showForgotForm'])
         ->name('password.request');
 
-    // Step 2: Proses Kirim OTP ke Email
     Route::post('forgot-password', [OtpForgotPasswordController::class, 'sendOtp'])
         ->name('password.email');
 
-    // Step 3: Form Input 5-Digit OTP & Password Baru
     Route::get('verify-otp', [OtpForgotPasswordController::class, 'showResetForm'])
         ->name('password.otp.reset.form');
 
-    // Step 4: Verifikasi OTP & Update Password
     Route::post('verify-otp', [OtpForgotPasswordController::class, 'resetPassword'])
         ->name('password.otp.update');
 
-    // Step 5: Kirim Ulang OTP
     Route::post('resend-otp', [OtpForgotPasswordController::class, 'resendOtp'])
         ->name('password.otp.resend');
 });
@@ -69,7 +64,12 @@ Route::middleware('auth')->group(function () {
 
     // --- FITUR CONFIGURE IP SYSTEM ---
     Route::prefix('ip-config')->name('ip-config.')->group(function () {
-        Route::get('/', [IpConfigController::class, 'index'])->name('index');
-        Route::post('/update', [IpConfigController::class, 'update'])->name('update');
+        Route::get('/', [IpConfigController::class, 'index'])
+            ->middleware('can:view-ip_config') // Diproteksi permission
+            ->name('index');
+            
+        Route::post('/update', [IpConfigController::class, 'update'])
+            ->middleware('can:edit-ip_config') // Diproteksi permission
+            ->name('update');
     });
 });
