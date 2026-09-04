@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User; // 1. Import Model User
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role; // Import Spatie Role Model
 
 class AuthenticatedSessionController extends Controller
 {
@@ -32,8 +33,14 @@ class AuthenticatedSessionController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        // 2. Sinkronkan role Spatie dari kolom 'role' di DB setiap kali login
+        // Sinkronkan role Spatie dari kolom 'role' di DB setiap kali login
         if ($user && $user->role) {
+            // Buat role di database Spatie terlebih dahulu jika belum ada
+            Role::firstOrCreate([
+                'name' => $user->role,
+                'guard_name' => 'web'
+            ]);
+
             $user->syncRoles([$user->role]);
         }
 

@@ -16,9 +16,13 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('web')
                 ->group(base_path('routes/user.php'));
 
-            // Register Route ApprovalSheet Baru
+            // Register Route ApprovalSheet
             Route::middleware('web')
                 ->group(base_path('routes/ApprovalSheet.php'));
+
+            // Register Route ApprovalTemplate
+            Route::middleware('web')
+                ->group(base_path('routes/ApprovalTemplate.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {

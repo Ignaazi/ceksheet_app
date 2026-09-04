@@ -89,12 +89,21 @@
       </li>
     @endcanany
 
-    <!-- SECTION: APPROVAL ENGINEERING (DI TAROH PALING BAWAH) -->
+    <!-- SECTION: APPROVAL ENGINEERING -->
     <li class="nav-heading mt-3 mb-2 px-2 d-flex align-items-center position-relative" style="height: 20px;">
       <span class="bg-white pe-2 text-muted fw-bold position-relative" style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.8px; z-index: 2; color: #747d8c !important;">
         Approval Engineering
       </span>
       <div class="position-absolute start-0 end-0 top-50 translate-y-50" style="border-bottom: 1px solid #e2e8f5; z-index: 1; margin-left: 8px; margin-right: 8px;"></div>
+    </li>
+
+    <!-- MENU: TEMPLATE APPROVAL (Diletakkan sebelum Approval Sheets) -->
+    <li class="nav-item">
+      <a class="nav-link rounded-3 d-flex align-items-center {{ request()->routeIs('approval-templates.*') ? 'active' : 'collapsed' }}"
+         href="{{ route('approval-templates.index') }}">
+        <i class="fa-solid fa-file-invoice me-2" style="font-size: 15px; color: #0984e3;"></i>
+        <span>Template Approval</span>
+      </a>
     </li>
 
     <!-- MENU: APPROVAL SHEETS AI -->
