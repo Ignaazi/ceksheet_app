@@ -45,10 +45,14 @@
                                 </span>
                                 
                                 <div class="d-flex gap-2">
-                                    <!-- TOMBOL PREVIEW VIA APPROVALCANVAS -->
-                                    <a href="{{ route('approval-templates.preview', $item->id) }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-circle" title="Preview Form Canvas">
+                                    <!-- TOMBOL PREVIEW (Memicu Modal Preview) -->
+                                    <button type="button" 
+                                            class="btn btn-sm btn-outline-primary rounded-circle" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#previewModal{{ $item->id }}" 
+                                            title="Preview Form Canvas">
                                         <i class="fa-solid fa-eye"></i>
-                                    </a>
+                                    </button>
 
                                     <form action="{{ route('approval-templates.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus template ini?')">
                                         @csrf
@@ -62,6 +66,38 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- MODAL POPUP PREVIEW (Mengambil file dari folder approval-template) -->
+                <div class="modal fade" id="previewModal{{ $item->id }}" tabindex="-1" aria-labelledby="previewModalLabel{{ $item->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content border-0 shadow">
+                            <div class="modal-header bg-dark text-white">
+                                <h6 class="modal-title fw-bold" id="previewModalLabel{{ $item->id }}">
+                                    <i class="fa-solid fa-eye text-warning me-2"></i> Preview Template: {{ $item->name }}
+                                </h6>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-0 bg-secondary bg-opacity-10">
+                                @php
+                                    // Path mengarah ke folder: resources/views/admin/approval/approval-template/
+                                    $viewName = 'admin.approval.approval-template.' . ($item->blade_view ?? 'template_printer');
+                                @endphp
+
+                                @if(view()->exists($viewName))
+                                    @include($viewName, ['template' => $item, 'sheet' => null])
+                                @else
+                                    <div class="p-5 text-center text-danger fw-bold">
+                                        File layout Blade <code>{{ $viewName }}.blade.php</code> tidak ditemukan.
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="modal-footer bg-light">
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             @empty
                 <div class="col-12">
                     <div class="card border-0 shadow-sm rounded-3 p-5 text-center">
@@ -107,7 +143,7 @@
                                 <option value="template_ict">ICT (template_ict.blade.php)</option>
                             </select>
                             <div class="form-text text-muted" style="font-size: 11px;">
-                                File ini menginduk ke <code>approvalCanvas.blade.php</code> untuk preview tata letak.
+                                File ini berada di folder <code>admin/approval/approval-template/</code>.
                             </div>
                         </div>
 

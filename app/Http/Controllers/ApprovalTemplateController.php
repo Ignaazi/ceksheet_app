@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 class ApprovalTemplateController extends Controller
 {
     /**
-     * Menampilkan daftar semua template approval.
+     * Menampilkan halaman utama daftar template approval.
      */
     public function index()
     {
         $templates = ApprovalTemplate::latest()->get();
         
-        // Memanggil file resources/views/approval/approvalTemplate.blade.php
-        return view('approval.approvalTemplate', compact('templates'));
+        // Mengarah ke resources/views/admin/approval/approvalTemplate.blade.php
+        return view('admin.approval.approvalTemplate', compact('templates'));
     }
 
     /**
@@ -43,38 +43,25 @@ class ApprovalTemplateController extends Controller
     }
 
     /**
-     * Menampilkan detail template.
-     */
-    public function show($id)
-    {
-        $template = ApprovalTemplate::findOrFail($id);
-        
-        return view('approval.approvalTemplate', [
-            'templates' => ApprovalTemplate::latest()->get(),
-            'activeTemplate' => $template
-        ]);
-    }
-
-    /**
-     * Preview Blade Template yang di-extends ke approvalCanvas.blade.php
+     * Preview Blade Template mandiri (jika dipanggil via route/URL khusus).
      */
     public function preview($id)
     {
         $template = ApprovalTemplate::findOrFail($id);
 
-        // Path mengarah ke folder: resources/views/approval/approval-template/
-        $viewPath = 'approval.approval-template.' . ($template->blade_view ?? 'template_printer');
+        // Mengarah ke sub-folder: resources/views/admin/approval/approval-template/
+        $viewPath = 'admin.approval.approval-template.' . ($template->blade_view ?? 'template_printer');
 
-        // Fallback jika file blade belum dibuat
+        // Fallback jika file tidak ditemukan
         if (!view()->exists($viewPath)) {
-            $viewPath = 'approval.approval-template.template_printer';
+            $viewPath = 'admin.approval.approval-template.template_printer';
         }
 
         return view($viewPath, compact('template'));
     }
 
     /**
-     * Memperbarui data template approval.
+     * Memperbarui data template.
      */
     public function update(Request $request, $id)
     {
