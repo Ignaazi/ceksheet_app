@@ -32,14 +32,19 @@
                 font-family: inherit !important;
             }
 
-            i, [class*="fa-"], [class*="fi-"], .fa, .fas, .far, .fal, .fab, .fa-solid, .fa-regular, .fa-brands {
-                font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "flag-icons" !important;
+            /* HANYA TIMPA FONT-FAMILY KHUSUS FONTAWESOME & FLAG-ICONS (JANGAN GANGGU BOOTSTRAP ICONS .bi) */
+            [class*="fa-"], .fa, .fas, .far, .fal, .fab, .fa-solid, .fa-regular, .fa-brands {
+                font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+            }
+            [class*="fi-"] {
+                font-family: "flag-icons" !important;
             }
 
             .sidebar, #main-content {
                 transition: all 0.3s ease-in-out !important;
             }
 
+            /* LAYOUT DESKTOP */
             body.toggle-sidebar .sidebar {
                 left: -260px !important;
             }
@@ -48,9 +53,22 @@
                 margin-left: 0 !important;
             }
 
+            /* LAYOUT MOBILE & TABLET (< 992px) */
             @media (max-width: 991.98px) {
+                /* Sembunyikan sidebar secara default di layar HP/Tablet */
+                .sidebar {
+                    left: -260px !important;
+                    z-index: 1050;
+                }
+
+                /* Tampilkan sidebar overlay saat tombol toggle diklik di HP */
+                body.toggle-sidebar .sidebar {
+                    left: 0 !important;
+                }
+
                 #main-content {
                     margin-left: 0 !important;
+                    width: 100% !important;
                 }
             }
         </style>
@@ -77,7 +95,7 @@
                     </header>
                 @endif
 
-                <main class="p-4">
+                <main class="p-2 p-md-4">
                     {{ $slot ?? $__env->yieldContent('content') }}
                 </main>
             </div>

@@ -65,9 +65,20 @@
             border: 1px solid #bae6fd !important;
             box-shadow: 0 4px 0 0 #0ea5e9;
         }
+
+        /* Adjustments for seamless mobile viewing */
+        @media (max-width: 575.98px) {
+            .search-input-wrapper {
+                max-width: 100% !important;
+                width: 100%;
+            }
+            .mobile-w-100 {
+                width: 100% !important;
+            }
+        }
     </style>
 
-    <div class="container-fluid px-2 px-md-4 py-4">
+    <div class="container-fluid px-2 px-md-4 py-3 py-md-4">
         
         <!-- HEADER TITLE & DESCRIPTION -->
         <div class="card border-0 rounded-3 p-3 p-sm-4 mb-4" style="background: radial-gradient(at 0% 0%, #e0e7ff 0px, transparent 50%), radial-gradient(at 25% 100%, #f3e8ff 0px, transparent 50%), radial-gradient(at 50% 0%, #ffedd5 0px, transparent 50%), radial-gradient(at 75% 100%, #fef9c3 0px, transparent 50%), radial-gradient(at 100% 0%, #dcfce7 0px, transparent 50%), #ffffff; border: 1px solid #cbd5e1 !important;">
@@ -103,7 +114,7 @@
                         <div class="fw-bold fs-3 leading-none text-dark">{{ $users->total() }}</div>
                         <div class="mt-1 small" style="font-size: 11px; color: #2563eb;">All Accounts</div>
                     </div>
-                    <div class="rounded-circle p-2.5 bg-primary bg-opacity-10 text-primary">
+                    <div class="rounded-circle p-2.5 bg-primary bg-opacity-10 text-primary flex-shrink-0">
                         <i class="bi bi-people-fill fs-4"></i>
                     </div>
                 </div>
@@ -119,7 +130,7 @@
                         </div>
                         <div class="mt-1 small" style="font-size: 11px; color: #4338ca;">Full Privileges</div>
                     </div>
-                    <div class="rounded-circle p-2.5" style="background-color: #e0e7ff; color: #3730a3;">
+                    <div class="rounded-circle p-2.5 flex-shrink-0" style="background-color: #e0e7ff; color: #3730a3;">
                         <i class="bi bi-shield-lock-fill fs-4"></i>
                     </div>
                 </div>
@@ -135,7 +146,7 @@
                         </div>
                         <div class="mt-1 small" style="font-size: 11px; color: #b45309;">Team Supervisor</div>
                     </div>
-                    <div class="rounded-circle p-2.5" style="background-color: #fef3c7; color: #92400e;">
+                    <div class="rounded-circle p-2.5 flex-shrink-0" style="background-color: #fef3c7; color: #92400e;">
                         <i class="bi bi-person-badge-fill fs-4"></i>
                     </div>
                 </div>
@@ -151,7 +162,7 @@
                         </div>
                         <div class="mt-1 small" style="font-size: 11px; color: #0284c7;">Operational Access</div>
                     </div>
-                    <div class="rounded-circle p-2.5" style="background-color: #e0f2fe; color: #075985;">
+                    <div class="rounded-circle p-2.5 flex-shrink-0" style="background-color: #e0f2fe; color: #075985;">
                         <i class="bi bi-person-workspace fs-4"></i>
                     </div>
                 </div>
@@ -162,7 +173,7 @@
         <div class="card border-0 rounded-3 p-3 p-sm-4 bg-white" style="border: 1px solid #cbd5e1 !important;">
             
             <!-- TOOLBAR: SEARCH, FILTER DROPDOWN, AND ADD USER LINK -->
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center gap-3 mb-4">
                 
                 <!-- SEARCH & FILTER FORM -->
                 <form method="GET" action="{{ route('users.index') }}" class="d-flex flex-wrap align-items-center gap-2 m-0 flex-grow-1" id="filterForm">
@@ -170,7 +181,7 @@
 
                     <!-- FILTER DROPDOWN -->
                     <div class="dropdown">
-                        <button class="btn btn-gradient-blue rounded-3 px-3 py-2 fw-semibold small d-inline-flex align-items-center gap-2 dropdown-toggle" 
+                        <button class="btn btn-gradient-blue rounded-3 px-3 py-2 fw-semibold small d-inline-flex align-items-center gap-2 dropdown-toggle mobile-w-100 justify-content-center" 
                                 type="button" 
                                 id="roleDropdownMenu" 
                                 data-bs-toggle="dropdown" 
@@ -188,7 +199,7 @@
                                 @endif
                             </span>
                         </button>
-                        <ul class="dropdown-menu border-0 rounded-3 mt-1" aria-labelledby="roleDropdownMenu" style="border: 1px solid #cbd5e1 !important;">
+                        <ul class="dropdown-menu border-0 rounded-3 mt-1 shadow-sm" aria-labelledby="roleDropdownMenu" style="border: 1px solid #cbd5e1 !important;">
                             <li>
                                 <a class="dropdown-item small fw-semibold text-secondary d-flex align-items-center gap-2" href="#" onclick="selectRoleFilter('')">
                                     <i class="bi bi-people-fill text-primary"></i> All Roles
@@ -214,13 +225,13 @@
                     </div>
 
                     <!-- SEARCH INPUT -->
-                    <div class="position-relative flex-grow-1" style="max-width: 300px;">
+                    <div class="position-relative flex-grow-1 search-input-wrapper" style="max-width: 300px;">
                         <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary" style="font-size: 13px;"></i>
-                        <input type="text" name="search" id="userSearchInput" class="form-control rounded-3 ps-5 pe-3 py-2 fw-semibold small" placeholder="Search users, NIK..." value="{{ request('search') }}" style="border-color: #cbd5e1;">
+                        <input type="text" name="search" id="userSearchInput" class="form-control rounded-3 ps-5 pe-3 py-2 fw-semibold small w-100" placeholder="Search users, NIK..." value="{{ request('search') }}" style="border-color: #cbd5e1;">
                     </div>
 
                     @if(request('search') || request('role'))
-                        <a href="{{ route('users.index') }}" class="btn btn-light rounded-3 px-3 py-2 fw-semibold border small text-secondary d-inline-flex align-items-center justify-content-center" style="background-color: #ffffff; border-color: #cbd5e1 !important;">
+                        <a href="{{ route('users.index') }}" class="btn btn-light rounded-3 px-3 py-2 fw-semibold border small text-secondary d-inline-flex align-items-center justify-content-center mobile-w-100" style="background-color: #ffffff; border-color: #cbd5e1 !important;">
                             <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
                         </a>
                     @endif
@@ -229,7 +240,7 @@
                 <!-- ADD USER NAVIGATION LINK (FULL PAGE) -->
                 <div>
                     <a href="{{ route('users.create') }}" 
-                       class="btn btn-gradient-blue rounded-3 px-3 py-2 fw-semibold small d-inline-flex align-items-center gap-2 text-nowrap justify-content-center text-decoration-none">
+                       class="btn btn-gradient-blue rounded-3 px-3 py-2 fw-semibold small d-inline-flex align-items-center gap-2 text-nowrap justify-content-center text-decoration-none w-100">
                         <i class="bi bi-person-plus-fill"></i>
                         <span>Add User</span>
                     </a>
@@ -319,7 +330,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="py-4 text-secondary small">
+                                <td colspan="7" class="py-4 text-secondary small text-center">
                                     <i class="bi bi-person-x fs-3 d-block mb-2"></i>
                                     No user accounts found matching your query.
                                 </td>
@@ -334,7 +345,7 @@
                 <span class="text-secondary small fw-medium text-center text-sm-start">
                     Showing {{ $users->firstItem() ?? 0 }}-{{ $users->lastItem() ?? 0 }} of {{ $users->total() }} users
                 </span>
-                <div>
+                <div class="w-100 w-sm-auto d-flex justify-content-center justify-content-sm-end">
                     {{ $users->links() }}
                 </div>
             </div>

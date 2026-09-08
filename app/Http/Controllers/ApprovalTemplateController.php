@@ -14,8 +14,8 @@ class ApprovalTemplateController extends Controller
     {
         $templates = ApprovalTemplate::latest()->get();
         
-        // Mengarah ke resources/views/admin/approval/approvalTemplate.blade.php
-        return view('admin.approval.approvalTemplate', compact('templates'));
+        // Disesuaikan: resources/views/approval/approvalTemplate.blade.php
+        return view('approval.approvalTemplate', compact('templates'));
     }
 
     /**
@@ -49,12 +49,12 @@ class ApprovalTemplateController extends Controller
     {
         $template = ApprovalTemplate::findOrFail($id);
 
-        // Mengarah ke sub-folder: resources/views/admin/approval/approval-template/
-        $viewPath = 'admin.approval.approval-template.' . ($template->blade_view ?? 'template_printer');
+        // Mengarah ke sub-folder: resources/views/approval/approval-template/
+        $viewPath = 'approval.approval-template.' . ($template->blade_view ?? 'template_printer');
 
         // Fallback jika file tidak ditemukan
         if (!view()->exists($viewPath)) {
-            $viewPath = 'admin.approval.approval-template.template_printer';
+            $viewPath = 'approval.approval-template.template_printer';
         }
 
         return view($viewPath, compact('template'));

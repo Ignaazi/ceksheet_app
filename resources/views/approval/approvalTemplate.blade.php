@@ -67,7 +67,7 @@
                     </div>
                 </div>
 
-                <!-- MODAL POPUP PREVIEW (Mengambil file dari folder approval-template) -->
+                <!-- MODAL POPUP PREVIEW (Mengambil file dari folder approval/approval-template) -->
                 <div class="modal fade" id="previewModal{{ $item->id }}" tabindex="-1" aria-labelledby="previewModalLabel{{ $item->id }}" aria-hidden="true">
                     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content border-0 shadow">
@@ -79,8 +79,8 @@
                             </div>
                             <div class="modal-body p-0 bg-secondary bg-opacity-10">
                                 @php
-                                    // Path mengarah ke folder: resources/views/admin/approval/approval-template/
-                                    $viewName = 'admin.approval.approval-template.' . ($item->blade_view ?? 'template_printer');
+                                    // Path disesuaikan ke: resources/views/approval/approval-template/
+                                    $viewName = 'approval.approval-template.' . ($item->blade_view ?? 'template_printer');
                                 @endphp
 
                                 @if(view()->exists($viewName))
@@ -130,7 +130,7 @@
                             <input type="text" name="name" class="form-control" placeholder="Contoh: Screen Printing Approval Sheet" required>
                         </div>
 
-                        <!-- PILIHAN LAYOUT BLADE DARI FOLDER approval-template/ -->
+                        <!-- PILIHAN LAYOUT BLADE DARI FOLDER approval/approval-template/ -->
                         <div class="mb-3">
                             <label class="form-label small fw-bold">Pilih Layout Blade Template</label>
                             <select name="blade_view" class="form-select" required>
@@ -143,7 +143,7 @@
                                 <option value="template_ict">ICT (template_ict.blade.php)</option>
                             </select>
                             <div class="form-text text-muted" style="font-size: 11px;">
-                                File ini berada di folder <code>admin/approval/approval-template/</code>.
+                                File ini berada di folder <code>approval/approval-template/</code>.
                             </div>
                         </div>
 

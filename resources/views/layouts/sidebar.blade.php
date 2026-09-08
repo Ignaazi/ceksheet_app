@@ -97,22 +97,23 @@
       <div class="position-absolute start-0 end-0 top-50 translate-y-50" style="border-bottom: 1px solid #e2e8f5; z-index: 1; margin-left: 8px; margin-right: 8px;"></div>
     </li>
 
-    <!-- MENU: TEMPLATE APPROVAL (Diletakkan sebelum Approval Sheets) -->
+    <!-- MENU: TEMPLATE APPROVAL -->
     <li class="nav-item">
       <a class="nav-link rounded-3 d-flex align-items-center {{ request()->routeIs('approval-templates.*') ? 'active' : 'collapsed' }}"
          href="{{ route('approval-templates.index') }}">
-        <i class="fa-solid fa-file-invoice me-2" style="font-size: 15px; color: #0984e3;"></i>
+        <i class="fa-solid fa-file-invoice me-2" style="font-size: 15px;"></i>
         <span>Template Approval</span>
       </a>
     </li>
 
-    <!-- MENU: APPROVAL SHEETS AI -->
+    <!-- MENU: APPROVAL SHEETS AI (Icon Robot + Warna Gradient AI Pelangi) -->
     <li class="nav-item">
       <a class="nav-link rounded-3 d-flex align-items-center {{ request()->routeIs('approval.*') ? 'active' : 'collapsed' }}"
          href="{{ route('approval.index') }}">
-        <i class="fa-solid fa-robot me-2" style="font-size: 15px; color: #6c5ce7;"></i>
+        <i class="fa-solid fa-robot me-2" 
+           style="font-size: 15px; background: linear-gradient(135deg, #ff7675, #6c5ce7, #0984e3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
         <span>Approval Sheets</span>
-        <span class="badge bg-primary ms-auto" style="font-size: 9px; letter-spacing: 0.3px;">AI</span>
+        <span class="badge ms-auto text-white" style="font-size: 9px; letter-spacing: 0.3px; background: linear-gradient(135deg, #ff7675, #6c5ce7, #0984e3); border: none;">AI</span>
       </a>
     </li>
 
